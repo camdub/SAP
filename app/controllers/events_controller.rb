@@ -1,5 +1,6 @@
 class EventsController < ApplicationController
   
+  respond_to :html, :only => :index # index.html.erb is used to initialize data for backbone
   respond_to :json
   
   # GET
@@ -11,7 +12,8 @@ class EventsController < ApplicationController
   # GET
   def show
     @event = Event.find(params[:id])
-    respond_with @event
+    @event[:appointment_ids] = @event.appointment_ids
+    render :json => @event, :status => :ok
   end
   
   # POST
@@ -20,7 +22,6 @@ class EventsController < ApplicationController
     if @event.save
       respond_with @event, :status => :ok # backbone needs 200
     else
-      logger.debug "Event: #{@event.errors.messages}"
       render :json => @event.errors.full_messages, :status => :unprocessable_entity
     end
   end

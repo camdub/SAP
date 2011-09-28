@@ -15,6 +15,7 @@ group :assets do
   gem 'coffee-rails', "~> 3.1.0"
   gem 'uglifier'
   gem 'eco' # coffeescript templates
+  gem 'backbone-rails'
 end
 
 gem 'jquery-rails'

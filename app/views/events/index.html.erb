@@ -1,0 +1,10 @@
+<%= content_for :javascript do -%>
+  <%= javascript_tag do %>
+  
+		// This loads some initial data for backbone
+		$(function() {
+    	App.init(<%== @events.to_json %>);
+		});
+		
+  <% end %>
+<% end -%>
