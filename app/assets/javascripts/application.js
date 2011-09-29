@@ -13,6 +13,10 @@
 //= require fullcalendar
 //= require gcal
 
+// TWITTER BOOTSTRAP
+//= require bootstrap-twipsy
+//= require bootstrap-popover
+
 //= require app
 
 //= require_tree ./models

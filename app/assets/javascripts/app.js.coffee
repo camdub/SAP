@@ -1,5 +1,3 @@
-
-
 window.App = 
   Models: {}
   Collections: {}
