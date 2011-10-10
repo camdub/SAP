@@ -1,0 +1,43 @@
+<div class="modal-header"><a href="#" class="close">×</a><h3>Create an Event</h3></div>
+<div class="modal-body">
+	<form>
+		<div class="clearfix">
+			<label>Date</label>
+			<div class="input">
+				<div class="inline-inputs">
+					<input type="text" class="small" value="<%= $.fullCalendar.formatDate(@model.get('start'), 'MMM d, yyyy') %>" />
+					<input type="text" class="mini" value="<%= $.fullCalendar.formatDate(@model.attributes.start, 'h:mm tt') %>" /> to
+					<input type="text" class="small" id="end" value="<%= $.fullCalendar.formatDate(@model.attributes.end, 'MMM d, yyyy') %>" />
+					<input type="text" class="mini" value="<%= $.fullCalendar.formatDate(@model.attributes.end, 'h:mm tt') %>" />
+				</div>
+			</div>
+		</div>
+		
+		<div class="clearfix">
+			<label for="type">Event Type:</label>
+			<div class="input">
+				<select name="some_name" id="some_name" size="1">
+					<option value="option1">Open</option>
+					<option value="option2">Busy</option>			
+				</select>
+			</div>
+		</div>
+		
+		<div class="clearfix">
+			<label for="appointments">Appointment Duration:</label>
+			<div class="input">
+				<div class="input-append" style="width: 500px">
+					<input type="text" class="mini" name="" value="30" id="apt_length" />
+					<span class="add-on">minutes</span>
+				</div>
+				<span class="help-block">Duration for each appointment in this event block</span>	
+			</div>		
+		</div>
+		
+	</form>
+	
+</div>
+<div class="modal-footer">
+	<a href="#" class="btn primary save">Save</a>
+	<a href="#" class="btn secondary cancel">Cancel</a>
+</div>

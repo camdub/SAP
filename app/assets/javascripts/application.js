@@ -16,6 +16,8 @@
 // TWITTER BOOTSTRAP
 //= require bootstrap-twipsy
 //= require bootstrap-popover
+//= require bootstrap-modal
+//= require bootstrap-dropdown
 
 //= require app
 

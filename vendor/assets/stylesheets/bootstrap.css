@@ -2055,7 +2055,7 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
   border-color: rgba(0, 0, 0, 0.15);
 }
 .modal-backdrop {
-  background-color: #000000;
+  background-color: #ccc;
   position: fixed;
   top: 0;
   left: 0;
@@ -2067,10 +2067,10 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
   opacity: 0;
 }
 .modal-backdrop, .modal-backdrop.fade.in {
-  filter: alpha(opacity=80);
-  -khtml-opacity: 0.8;
-  -moz-opacity: 0.8;
-  opacity: 0.8;
+  filter: alpha(opacity=60);
+  -khtml-opacity: 0.6;
+  -moz-opacity: 0.6;
+  opacity: 0.6;
 }
 .modal {
   position: fixed;

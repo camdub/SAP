@@ -3473,6 +3473,9 @@ function AgendaView(element, calendar, viewName) {
 	
 	
 	function renderSlotSelection(startDate, endDate) {
+	  // added by Cameron W
+	  $('.fc-event').popover('hide');
+	  
 		var helperOption = opt('selectHelper');
 		coordinateGrid.build();
 		if (helperOption) {

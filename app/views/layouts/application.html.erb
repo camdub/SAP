@@ -5,12 +5,64 @@
   <%= stylesheet_link_tag    "application" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
+
+	<style type="text/css">
+		
+		
+		
+		#calendar {
+			margin-top: 75px;
+		}
+		
+		#calendar table th + th  {
+			border-left: 0;
+		}
+		
+		.fc-header, .fc-header-center, .fc-header-right {
+			border-left: 0;
+			border: 0;
+		}
+	</style>
 </head>
 <body>
 
 <%= yield :javascript %>
 
-<div id="calendar"></div>
+<div class="topbar">
+	<div class="topbar-inner">
+		<div class="container">
+			<ul class="nav">
+				<li><a href="#">MyGuide</a></li>
+				<li class="active"><a href="#">Scheduling</a></li>
+				<li><a href="#">Internships</a></li>
+				<li><a href="#">Admin</a></li>
+			</ul>
+			<ul class="nav secondary-nav">
+				<li class="dropdown" data-dropdown="dropdown">
+					<a href="#" class="dropdown-toggle">wralphca</a>
+					<ul class="dropdown-menu">
+						<li><a href="">Settings</a></li>
+						<li class="divider"></li>
+						<li><a href="#">Log Out</a></li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+
+<div class="container-fluid">
+	
+	
+	<div class="sidebar" style="background-color: red">
+		Messaging
+	</div>
+	
+	<div class="content">
+		<div id="neweventdialog"></div>
+		<div id="calendar"></div>
+	</div>
+</div>
 
 </body>
 </html>
