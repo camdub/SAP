@@ -1,7 +1,16 @@
 SAP::Application.routes.draw do
   
   resources :events
+  
   resources :appointments
+  
+  resources :users
+  
+  
+  match 'signup' => 'users#signup', :as => :user_signup
+  match 'login' => 'users#login', :as => :user_login
+  match 'logout' => 'users#logout', :as => :user_logout
+  
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
@@ -52,6 +61,7 @@ SAP::Application.routes.draw do
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
   # root :to => 'welcome#index'
+  root :to => 'users#login'
 
   # See how all your routes lay out with "rake routes"
 

@@ -1,0 +1,22 @@
+<% if @user.errors.any? %>
+	<% @user.errors.each do |error| %>
+		<% error %>
+	<% end %>
+<% end %>
+
+<h2>Login</h2>
+<%= form_tag user_login_path do %>
+	<div class="field">
+		<label class="fields"><strong>Netid</strong></label>
+		<input type="text" id="netid" name="netid">
+	</div>
+	<div class="field">
+		<label class="fields"><strong>Password</strong></label>
+		<input type="password" id="password" name="password">
+	</div>
+	<input type="submit">
+	
+	<div>
+		<%= link_to 'New user sign up!', user_signup_path %>
+	</div>
+<% end %>

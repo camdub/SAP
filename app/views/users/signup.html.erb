@@ -1,0 +1,28 @@
+<h2>Registration</h2>
+<%= form_for @user, :url => {:action => "signup"} do |user_form| %>
+	<div class="field">
+		<%= user_form.label :firstname %>
+		<%= user_form.text_field :firstname %>
+	</div>
+	<div class="field">
+	   	<%= user_form.label :lastname %>
+	    <%= user_form.text_field :lastname %>
+	</div>
+	<div class="field">
+	    <%= user_form.label :netid %>
+	    <%= user_form.text_field :netid %>
+	</div>
+	<div class="field">
+		<%= user_form.label :password %>
+		<%= user_form.password_field :password %>
+	</div>
+	<div class="field">
+		<%= user_form.label :password_confirmation %>
+	    <%= user_form.password_field :password_confirmation %>
+	</div>
+	<div class="field">
+		<input type="submit" />
+	</div>
+<% end %>
+
+
