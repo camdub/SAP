@@ -10,8 +10,10 @@ class ApplicationController < ActionController::Base
   def current_user
     @current_user ||= User.find(session[:user_id]) if session[:user_id]   
   end
-  def authenticate 
-    redirect_to user_login if not current_user
+  def authenticate
+    puts "tests"
+    #puts current_user.netid 
+    redirect_to user_login_path if not current_user
   end
   #helper_method :current_user
 end

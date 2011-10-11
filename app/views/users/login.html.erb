@@ -1,10 +1,13 @@
-<% if @user.errors.any? %>
-	<% @user.errors.each do |error| %>
-		<% error %>
-	<% end %>
-<% end %>
+	<% error = flash[:error] %>
+  <% if error %>
+    <div id="error_explanation">
+	  <h2>Error</h2>
+      <ul>
+        <li><%= flash[:error] %></li>
+      </ul>
+    </div>
+  <% end %>
 
-<h2>Login</h2>
 <%= form_tag user_login_path do %>
 	<div class="field">
 		<label class="fields"><strong>Netid</strong></label>

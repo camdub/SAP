@@ -3,10 +3,12 @@ namespace :app do
 		Load Testing data into Dev database
 		Run using the command 'rake app:load_demo_data'
 	DESC
-	task :load_demo_data => [:environment] do 
+	task :load_demo_data do 
 		
+		puts "hello"
+		puts User.all
 		User.delete.all
-		Event .delete.all
+		Event.delete.all
 		
 		dave = User.create(
 			:firstname => 'Dave',
@@ -74,28 +76,28 @@ namespace :app do
 				:start =>  Time.utc(2011,'oct',5,12,00),
 				:end => Time.utc(2011,'oct',5,13,00),
 				:event_type => 'Busy',
-				:user_id => dave
+				:user => dave
 			},
 			{	
 			  :title => 'Research',
 				:start =>  Time.utc(2011,'oct',5,13,00),
 				:end => Time.utc(2011,'oct',5,14,00),
 				:event_type => 'Busy',
-				:user_id => dave
+				:user => dave
 			},
 			{	
 			  :title => 'Meeting', 
 				:start =>  Time.utc(2011,'oct',5,14,00),
 				:end => Time.utc(2011,'oct',5,16,00),
 				:event_type => 'Busy',
-				:user_id => dave
+				:user => dave
 			},
       {	
 			  :title => 'Jared', 
 				:start =>  Time.utc(2011,'oct',5,16,00),
 				:end => Time.utc(2011,'oct',5,17,00),
 				:event_type => 'Appoitment',
-				:user_id => dave
+				:user => dave
 			},
 			######
 			{	
@@ -132,28 +134,28 @@ namespace :app do
 				:start =>  Time.utc(2011,'oct',6,12,00),
 				:end => Time.utc(2011,'oct',6,13,00),
 				:event_type => 'Busy',
-				:user_id => dave
+				:user => dave
 			},
 			{	
 			  :title => 'Research',
 				:start =>  Time.utc(2011,'oct',6,13,00),
 				:end => Time.utc(2011,'oct',6,14,00),
 				:event_type => 'Busy',
-				:user_id => dave
+				:user => dave
 			},
 			{	
 			  :title => 'Meeting', 
 				:start =>  Time.utc(2011,'oct',6,14,00),
 				:end => Time.utc(2011,'oct',6,16,00),
 				:event_type => 'Busy',
-				:user_id => dave
+				:user => dave
 			},
       {	
 			  :title => 'Jared', 
 				:start =>  Time.utc(2011,'oct',6,16,00),
 				:end => Time.utc(2011,'oct',6,17,00),
 				:event_type => 'Appoitment',
-				:user_id => dave
+				:user => dave
 			},
 			######
 			{	
@@ -190,28 +192,28 @@ namespace :app do
 				:start =>  Time.utc(2011,'oct',7,12,00),
 				:end => Time.utc(2011,'oct',7,13,00),
 				:event_type => 'Busy',
-				:user_id => dave
+				:user => dave
 			},
 			{	
 			  :title => 'Research',
 				:start =>  Time.utc(2011,'oct',7,13,00),
 				:end => Time.utc(2011,'oct',7,14,00),
 				:event_type => 'Busy',
-				:user_id => dave
+				:user => dave
 			},
 			{	
 			  :title => 'Meeting', 
 				:start =>  Time.utc(2011,'oct',7,14,00),
 				:end => Time.utc(2011,'oct',7,16,00),
 				:event_type => 'Busy',
-				:user_id => dave
+				:user => dave
 			},
       {	
 			  :title => 'Jared', 
 				:start =>  Time.utc(2011,'oct',7,16,00),
 				:end => Time.utc(2011,'oct',7,17,00),
 				:event_type => 'Appoitment',
-				:user_id => dave
+				:user => dave
 			},
 			######
 			{	
@@ -248,28 +250,28 @@ namespace :app do
 				:start =>  Time.utc(2011,'oct',8,12,00),
 				:end => Time.utc(2011,'oct',8,13,00),
 				:event_type => 'Busy',
-				:user_id => dave
+				:user => dave
 			},
 			{	
 			  :title => 'Research',
 				:start =>  Time.utc(2011,'oct',8,13,00),
 				:end => Time.utc(2011,'oct',8,14,00),
 				:event_type => 'Busy',
-				:user_id => dave
+				:user => dave
 			},
 			{	
 			  :title => 'Meeting', 
 				:start =>  Time.utc(2011,'oct',8,14,00),
 				:end => Time.utc(2011,'oct',8,16,00),
 				:event_type => 'Busy',
-				:user_id => dave
+				:user => dave
 			},
       {	
 			  :title => 'Jared', 
 				:start =>  Time.utc(2011,'oct',8,16,00),
 				:end => Time.utc(2011,'oct',8,17,00),
 				:event_type => 'Appoitment',
-				:user_id => dave
+				:user => dave
 			},
 		])
   end

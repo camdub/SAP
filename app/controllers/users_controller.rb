@@ -88,10 +88,14 @@ class UsersController < ApplicationController
       user = User.find_by_netid(params[:netid])
       if user && user.authenticate(params[:password])
         session[:user_id] = user.id
-        redirect_to user, :notice => "Logged in!"
+        redirect_to root_path, :notice => "Logged in!"
+        return
       else
-        flash[:error] = "Invalid email or password"
+        flash[:error] = "Invalid netid or password"
       end
+    end
+    respond_to do |format|
+      format.html { render :layout => 'layouts/internal' }
     end
   end
   
@@ -101,6 +105,9 @@ class UsersController < ApplicationController
       if @user.save
         redirect_to user_login_path, :notice => 'Account Created'
       end
+    end
+    respond_to do |format|
+      format.html { render :layout => 'layouts/internal' }
     end
   end
 
