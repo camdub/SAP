@@ -6,4 +6,24 @@
 //
 //= require jquery
 //= require jquery_ujs
+
+//= require underscore
+//= require backbone
+//= require backbone.authtokenadapter
+//= require fullcalendar
+//= require gcal
+
+// TWITTER BOOTSTRAP
+//= require bootstrap-twipsy
+//= require bootstrap-popover
+//= require bootstrap-modal
+//= require bootstrap-dropdown
+
+//= require app
+
+//= require_tree ./models
+//= require_tree ./collections
+//= require_tree ./views
+//= require_tree ./routers
+//= require_tree ../templates
 //= require_tree .

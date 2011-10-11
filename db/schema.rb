@@ -11,25 +11,25 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111011040049) do
+ActiveRecord::Schema.define(:version => 20110916210914) do
 
   create_table "appointments", :force => true do |t|
     t.integer  "user_id"
     t.text     "notes"
     t.string   "status"
+    t.integer  "event_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "event_id"
   end
 
   create_table "events", :force => true do |t|
-    t.string   "name"
+    t.string   "title"
+    t.datetime "start"
+    t.datetime "end"
+    t.boolean  "allDay",          :default => false
     t.string   "event_type"
-    t.datetime "start_datetime"
-    t.datetime "end_datetime"
     t.integer  "participant_max", :default => 1
     t.integer  "user_id"
-    t.integer  "appointment_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

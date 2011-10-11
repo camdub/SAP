@@ -16,6 +16,7 @@ group :assets do
   gem 'coffee-rails', "~> 3.1.0"
   gem 'uglifier'
   gem 'eco' # coffeescript templates
+  gem 'backbone-rails'
 end
 
 gem 'jquery-rails'
@@ -26,11 +27,18 @@ gem 'jquery-rails'
 # Deploy with Capistrano
 # gem 'capistrano'
 
-group :development do
+group :development, :test do
+  #gem 'jasminerice'
+  #gem 'rb-fsevent'
+  #gem 'growl'
+  #gem 'guard'
+  #gem 'guard-coffeescript'
+  #gem 'guard-livereload'
+  gem 'jasmine'#,
+    #:git => 'git://github.com/pivotal/jasmine-gem.git',
+    #:branch => "1.2.rc1"
+  gem 'evergreen', :require => 'evergreen/rails'
   gem 'rspec-rails'
-end
-
-group :test do
   gem 'rspec'
   gem 'json_spec'
   gem 'capybara'
@@ -38,7 +46,6 @@ group :test do
   gem 'factory_girl_rails'
   gem 'cucumber-rails'
   gem 'database_cleaner'
-  gem 'fakeweb'
 end
 
 # To use debugger

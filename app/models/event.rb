@@ -10,9 +10,9 @@ class Event < ActiveRecord::Base
   # TODO - put custom validations in their own file
   
   #validates :end_datetime, :chronological => true
-  validates_each :end_datetime, do |model, attr, value|
+  validates_each :end, do |model, attr, value|
     model.errors.add(attr, 'cannot be before start time.') if 
-      (model.end_datetime - model.start_datetime) <= 0
+      (model.end - model.start) <= 0
   end
   
 end
