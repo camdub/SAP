@@ -4,7 +4,6 @@ SAP::Application.routes.draw do
   
   resources :appointments
   
-<<<<<<< HEAD
   resources :users
   
   
@@ -62,14 +61,13 @@ SAP::Application.routes.draw do
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
   # root :to => 'welcome#index'
-  root :to => 'users#login'
-
+  #root :to => 'users#login'
+  root :to => 'events#index'
   # See how all your routes lay out with "rake routes"
-=======
+
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  root :to => 'events#index'
->>>>>>> 56d1165db41e638e4d74fa19d4e018976c24c6ce
+  
 
   # for jasmine testing 'localhost:3000/jasmine'
   #if ["development", "test"].include? Rails.env
