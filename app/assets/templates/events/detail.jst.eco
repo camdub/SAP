@@ -1,6 +1,10 @@
-<p>
-	Lauren knows that
-	<%= @model.title %>
-</p>
-<h5>Reason for Visit</h5>
-<p>Internship database is BROKEN! ZOMG!</p>
+<!--<p>
+	<% if @model.title: %>
+		<%= @model.title %>
+	<% else: %>
+		Open
+	<% end %>
+</p>-->
+This slot can be reserved for an appointment.
+<h5>Notes</h5>
+<p><% if @model.description: %><%= @model.description %><% else: %>None<% end %></p>

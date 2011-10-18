@@ -1,14 +1,18 @@
-<div class="modal-header"><a href="#" class="close">×</a><h3>Create an Event</h3></div>
+<div class="modal-header"><a href="#" class="close">×</a>
+	<h3><% if not @model.hasOwnProperty('id'): %>Create an Event
+			<% else: %>Edit <%= @model.get('event_type') %> Event<% end %>
+	</h3>
+</div>
 <div class="modal-body">
 	<form>
 		<div class="clearfix">
 			<label>Date</label>
 			<div class="input">
 				<div class="inline-inputs">
-					<input type="text" class="small" value="<%= $.fullCalendar.formatDate(@model.get('start'), 'MMM d, yyyy') %>" />
-					<input type="text" class="mini" value="<%= $.fullCalendar.formatDate(@model.attributes.start, 'h:mm tt') %>" /> to
-					<input type="text" class="small" id="end" value="<%= $.fullCalendar.formatDate(@model.attributes.end, 'MMM d, yyyy') %>" />
-					<input type="text" class="mini" value="<%= $.fullCalendar.formatDate(@model.attributes.end, 'h:mm tt') %>" />
+					<input type="text" class="small" value="<%= $.fullCalendar.formatDate(@startdate, 'MMM d, yyyy') %>" />
+					<input type="text" class="mini" value="<%= $.fullCalendar.formatDate(@startdate, 'h:mm tt') %>" /> to
+					<input type="text" class="small" id="end" value="<%= $.fullCalendar.formatDate(@enddate, 'MMM d, yyyy') %>" />
+					<input type="text" class="mini" value="<%= $.fullCalendar.formatDate(@enddate, 'h:mm tt') %>" />
 				</div>
 			</div>
 		</div>
@@ -16,14 +20,14 @@
 		<div class="clearfix">
 			<label for="type">Event Type:</label>
 			<div class="input">
-				<select name="some_name" id="some_name" size="1">
+				<select name="type" id="type" size="1">
 					<option value="option1">Open</option>
 					<option value="option2">Busy</option>			
 				</select>
 			</div>
 		</div>
 		
-		<div class="clearfix">
+		<div class="clearfix open" id="duration_section">
 			<label for="appointments">Appointment Duration:</label>
 			<div class="input">
 				<div class="input-append" style="width: 500px">
