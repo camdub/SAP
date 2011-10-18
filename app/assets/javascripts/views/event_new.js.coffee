@@ -5,10 +5,15 @@ class App.Views.NewEventView extends Backbone.View
   events:
     "click .cancel" : "close"
     "click .save"   : "save"
+    "change #type"  : "type_list"
   
   render: =>
-    $(@el).html(JST['events/new']( model: @model ))
-    console.log @model.get('start')
+    console.log(@model)
+    $(@el).html(JST['events/new']( 
+      model: @model
+      startdate: $.fullCalendar.parseDate(@model.get('start'))
+      enddate: $.fullCalendar.parseDate(@model.get('start'))  
+    ))
     $('body').append(@el)
     # don't know why these are not added by the modal js
     $(@el).addClass('modal')
@@ -19,31 +24,30 @@ class App.Views.NewEventView extends Backbone.View
       
   save: ->
     @$('.save').addClass('disabled').html 'Saving...'
+    console.log('enter save' + typeof(@model.get('start')))
     # convert into appointments
     start = $.fullCalendar.parseDate @model.get('start')
     end = $.fullCalendar.parseDate @model.get('end')
-    
-    #hours = (end.getHours() - start.getHours()) * 60 # in minutes
-    #duration = @$('#apt_length').val()
-    #num_apts = hours / duration
-
-    #aptstart = start
-    #aptend = end
-    #for i in [1..num_apts] 
-     # aptstart.setMinutes(start.getMinutes()*(i-1))
-      #aptend.setMinutes(start.getMinutes()*i)
-      #onsole.log aptstart + ' and ' + aptend
-      #m = new App.Models.Event( title : 'Open', event_type : 'Open' )
-    
-    #console.log @model.get('end')
-    #@model.save( title: 'Testing', event_type: 'Busy', color: 'red', 
-     # success: (model, response) ->
-      #  $('.modal').modal('hide')
-       # App.events.add(model)
-      #error: (model, response) ->
-      #ADD ERROR HANDLING HERE
-       #console.log response
-    #)
+    duration = 30 if not @$('#apt-length').val()
       
+    temp = null
+    # create appointment slots
+    while start.toString() != end.toString()
+      temp = new Date(start)
+      start.setMinutes(start.getMinutes() + duration)
+
+      appointment_slot = new App.Models.Event( start: temp, end: start, event_type: 'Open' )
+      @collection.create(appointment_slot, 
+        success: (model, response) =>
+          $('.modal').modal('hide')
+          return
+        error: (model, response) ->
+          #TODO
+          alert response.responseText
+      )
+    
   close: ->
     $(@el).modal('hide')
+    
+  type_list: =>
+    $('#duration_section').slideToggle('fast')

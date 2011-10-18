@@ -1,7 +1,35 @@
 
 // CALENDAR STYLES
 
+
 // position × for the popover
-.popover .close {
-  margin: 9px 9px 0 0;
+.popover {
+
+  .close, .edit, .delete {
+    margin: 9px 9px 0 0;
+    float: right;
+    color: #000000;
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 13.5px;
+    text-shadow: 0 1px 0 #ffffff;
+    filter: alpha(opacity=20);
+    -khtml-opacity: 0.2;
+    -moz-opacity: 0.2;
+    opacity: 0.2;
+    
+    &:hover {
+      color: #000000;
+      text-decoration: none;
+      filter: alpha(opacity=40);
+      -khtml-opacity: 0.4;
+      -moz-opacity: 0.4;
+      opacity: 0.4;
+    }
+  }
+  
+  .edit, .delete {
+    margin-top: 11px;
+    font-size: 12px;
+  }
 }
