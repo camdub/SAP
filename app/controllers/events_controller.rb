@@ -6,6 +6,7 @@ class EventsController < ApplicationController
   # GET
   def index
     @events = Event.all
+    @events.map{|event| event[:user_data] = event.user.user_data}
     respond_with @events
   end
   
@@ -19,6 +20,7 @@ class EventsController < ApplicationController
   # POST
   def create
     @event = Event.create(params[:event])
+    @event.user = @current_user
     if @event.save
       respond_with @event, :status => :ok # backbone needs 200
     else
@@ -29,7 +31,6 @@ class EventsController < ApplicationController
   # PUT
   def update
     @event = Event.find(params[:id])
-    
     if @event.update_attributes(params[:event])
       render :json => @event, :status => :ok # 200
     else

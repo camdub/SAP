@@ -13,6 +13,5 @@ class Event < ActiveRecord::Base
   validates_each :end, do |model, attr, value|
     model.errors.add(attr, 'cannot be before start time.') if 
       (model.end - model.start) <= 0
-  end
-  
+  end  
 end

@@ -12,7 +12,7 @@ class App.Views.NewEventView extends Backbone.View
     $(@el).html(JST['events/new']( 
       model: @model
       startdate: $.fullCalendar.parseDate(@model.get('start'))
-      enddate: $.fullCalendar.parseDate(@model.get('start'))  
+      enddate: $.fullCalendar.parseDate(@model.get('end'))  
     ))
     $('body').append(@el)
     # don't know why these are not added by the modal js

@@ -39,7 +39,7 @@
 			</ul>
 			<ul class="nav secondary-nav">
 				<li class="dropdown" data-dropdown="dropdown">
-					<a href="#" class="dropdown-toggle"><wralphca><%= @current_user.netid %></a>
+					<a id="current_user" user="<%= @current_user.user_data.to_json %>" href="#" class="dropdown-toggle"><%= @current_user.netid %></a>
 					<ul class="dropdown-menu">
 						<li><a href="">Settings</a></li>
 						<li class="divider"></li>

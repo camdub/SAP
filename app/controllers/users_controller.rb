@@ -82,7 +82,7 @@ class UsersController < ApplicationController
   end
   ####################################################
   def login
-    
+  
     redirect_to @current_user if current_user
     if params[:netid]
       user = User.find_by_netid(params[:netid])
@@ -104,6 +104,7 @@ class UsersController < ApplicationController
     if params[:user]
       if @user.save
         redirect_to user_login_path, :notice => 'Account Created'
+        return
       end
     end
     respond_to do |format|

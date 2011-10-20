@@ -7,7 +7,7 @@ gem 'rails', '3.1.1'
 
 gem 'sqlite3'
 gem 'cancan'
-gem 'rails_admin', :git => 'git://github.com/sferik/rails_admin.git'
+gem 'bcrypt-ruby'
 
 
 # Gems used only for assets and not required

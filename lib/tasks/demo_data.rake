@@ -6,9 +6,9 @@ namespace :app do
 	task :load_demo_data do 
 		
 		puts "hello"
-		puts User.all
-		User.delete.all
-		Event.delete.all
+		#puts User.all
+		User.destroy_all
+		Event.destroy_all
 		
 		dave = User.create(
 			:firstname => 'Dave',
@@ -23,7 +23,7 @@ namespace :app do
 		cam = User.create(		
 			:firstname => 'Cameron',
 			:lastname => 'Woodmansee',
-			:netid => 'wralfca',
+			:netid => 'wralphca',
 		)
 		Event.create([
 		#
