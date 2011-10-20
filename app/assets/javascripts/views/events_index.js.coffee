@@ -1,5 +1,6 @@
 class App.Views.EventIndex extends Backbone.View
-     
+  events: 
+   "change #calendar_selection" : "change_active_calendar"
   initialize: ->
     @collection.bind('reset', @addAll)
     @collection.bind('add', @add)
@@ -21,12 +22,21 @@ class App.Views.EventIndex extends Backbone.View
       eventRender: @event_detail
       selectable: true
       selectHelper: true
-    @collection.trigger('reset') # trigger addAll method
+    @collection.trigger('reset',App.current_user) # trigger addAll method
+    @el.prepend(JST['events/calendar_select']())
+   
    
   # Triggered after fullCalendar loads
   # Loads all events in the collection into the calendar (creates event obj)  
-  addAll: =>
-    @el.fullCalendar('addEventSource', @collection.toJSON())
+  addAll: (user) =>
+    this_users_events = @collection.filter( (event)->
+      return event.get("user_data").netid == user.get("netid")
+    )    
+    this_users_events = _.map(this_users_events, (event)-> 
+      return event.toJSON()
+    )
+    
+    @el.fullCalendar('addEventSource', this_users_events)
     
   # Triggered after a new event is added to the collection
   # Renders a single event to the calendar
@@ -77,9 +87,9 @@ class App.Views.EventIndex extends Backbone.View
     @view.collection = @collection
     @view.render()
     
-  
-  
-  
-  
-  
-  
+  change_active_calendar: ->
+    selected_user =  App.advisors.getByCid($("#calendar_selection").val())
+    @el.fullCalendar('removeEvents')
+    @collection.trigger('reset', selected_user) # trigger addAll method
+    
+    

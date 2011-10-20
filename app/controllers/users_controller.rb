@@ -9,7 +9,13 @@ class UsersController < ApplicationController
       format.json { render json: @users }
     end
   end
+  
+  def advisors
+    @advisors = Role.find_by_name(:Advisor).users.map{|user| user = user.user_data}
 
+    render json: @advisors  
+  end
+  
   # GET /users/1
   # GET /users/1.json
   def show

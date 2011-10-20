@@ -5,11 +5,13 @@ SAP::Application.routes.draw do
   resources :appointments
   
   resources :users
+  match 'advisors' => 'users#advisors'
   
   
   match 'signup' => 'users#signup', :as => :user_signup
   match 'login' => 'users#login', :as => :user_login
   match 'logout' => 'users#logout', :as => :user_logout
+  
   
   # The priority is based upon order of creation:
   # first created -> highest priority.

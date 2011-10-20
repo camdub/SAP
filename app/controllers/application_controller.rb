@@ -13,7 +13,6 @@ class ApplicationController < ActionController::Base
   def authenticate
     #puts current_user.netid 
     redirect_to user_login_path if not current_user
-    puts "++++++++++++++++++++++++++++++++++++++++++#{@current_user.netid}++++++++++++++++++++++++++++++++++++++++++"
   end
   #helper_method :current_user
 end

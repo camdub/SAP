@@ -11,16 +11,14 @@ class User < ActiveRecord::Base
   
   def user_data
     {
-      :id => self.id,
       :firstname => self.firstname, 
       :lastname => self.lastname, 
       :netid => self.netid,
-      :can_read_all_events => 
-      :can_read_own_events => 
-      :can_write_events => 
-      :can_book_own_appointments =>
-      :can_book_all_appointments => 
-      
+      :can_read_all_events => true,
+      :can_read_own_events => true,
+      :can_write_events => true,
+      :can_book_own_appointments => true,
+      :can_book_all_appointments => true
     }
   end
   

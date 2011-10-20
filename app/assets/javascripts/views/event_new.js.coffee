@@ -37,6 +37,9 @@ class App.Views.NewEventView extends Backbone.View
       start.setMinutes(start.getMinutes() + duration)
 
       appointment_slot = new App.Models.Event( start: temp, end: start, event_type: 'Open' )
+      appointment_slot.set(user_data : App.current_user.toJSON()) # add current user info to the event before saving
+      console.log appointment_slot
+      
       @collection.create(appointment_slot, 
         success: (model, response) =>
           $('.modal').modal('hide')

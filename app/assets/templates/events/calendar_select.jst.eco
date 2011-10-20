@@ -1,0 +1,9 @@
+<strong>Select A Calendar: </strong> <select name="type" id="calendar_selection" size="1">
+	<% console.log App.current_user.cid %>
+	<% App.advisors.each (advisor)-> : %>
+		
+		<option value="<%= advisor.cid %>" selected="<%= selected if App.current_user.cid == advisor.cid %>">
+			<%= advisor.get("firstname") %> <%= advisor.get("lastname") %>
+		</option>
+	<% end %>
+</select>
