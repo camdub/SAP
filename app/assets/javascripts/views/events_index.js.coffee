@@ -37,6 +37,7 @@ class App.Views.EventIndex extends Backbone.View
     )
     
     @el.fullCalendar('addEventSource', this_users_events)
+    $('.fc-event').fadeIn(1000);
     
   # Triggered after a new event is added to the collection
   # Renders a single event to the calendar
@@ -44,8 +45,10 @@ class App.Views.EventIndex extends Backbone.View
     @el.fullCalendar('renderEvent', event.toJSON())
     
   remove: (event) =>
+    console.log event.id
     $('.popover').css('display','none')
     @el.fullCalendar('removeEvents', event.id)
+    $('.fc-event').css('display','block')
     
   # Called by eventRender callback of fullCalendar  
   # Loads the detail view into the popover and initializes the popover  
@@ -89,7 +92,10 @@ class App.Views.EventIndex extends Backbone.View
     
   change_active_calendar: ->
     selected_user =  App.advisors.getByCid($("#calendar_selection").val())
-    @el.fullCalendar('removeEvents')
-    @collection.trigger('reset', selected_user) # trigger addAll method
+    $('.fc-event').fadeOut('fast', =>
+      @el.fullCalendar('removeEvents')
+      @collection.trigger('reset', selected_user) # trigger addAll method
+    );
+    
     
     
