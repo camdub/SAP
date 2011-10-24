@@ -1,6 +1,7 @@
 class App.Views.EventIndex extends Backbone.View
   events: 
    "change #calendar_selection" : "change_active_calendar"
+   
   initialize: ->
     @collection.bind('reset', @addAll)
     @collection.bind('add', @add)
@@ -22,20 +23,19 @@ class App.Views.EventIndex extends Backbone.View
       eventRender: @event_detail
       selectable: true
       selectHelper: true
-    @collection.trigger('reset',App.current_user) # trigger addAll method
+    @collection.trigger('reset', App.current_user) # trigger addAll method
     @el.prepend(JST['events/calendar_select']())
-   
-   
+    
   # Triggered after fullCalendar loads
-  # Loads all events in the collection into the calendar (creates event obj)  
+  # Loads all events in the collection into the calendar (creates event obj)
+  # based on the current user and which user's calendar is currently selected  
   addAll: (user) =>
     this_users_events = @collection.filter( (event)->
       return event.get("user_data").netid == user.get("netid")
     )    
     this_users_events = _.map(this_users_events, (event)-> 
       return event.toJSON()
-    )
-    
+    )  
     @el.fullCalendar('addEventSource', this_users_events)
     $('.fc-event').fadeIn(1000);
     
@@ -86,9 +86,14 @@ class App.Views.EventIndex extends Backbone.View
   # Called after the user makes a selection on the calendar
   # Creates a new event and asks the user for more input via a model windoow
   select: (startdate, enddate) =>
-    @view.model = new App.Models.Event( start: startdate.toString(), end: enddate.toString() )
-    @view.collection = @collection
-    @view.render()
+    # check to see if this user can edit current calendar
+    if App.current_user.get('netid') == App.advisors.getByCid($("#calendar_selection").val()).get('netid')
+      @view.model = new App.Models.Event( start: startdate.toString(), end: enddate.toString() )
+      @view.collection = @collection
+      @view.render()
+    else
+      @el.fullCalendar('unselect')
+      $('#note').notify('type' : 'error', 'message' : 'Cannot edit another user\'s calendar.')
     
   change_active_calendar: ->
     selected_user =  App.advisors.getByCid($("#calendar_selection").val())
@@ -96,6 +101,9 @@ class App.Views.EventIndex extends Backbone.View
       @el.fullCalendar('removeEvents')
       @collection.trigger('reset', selected_user) # trigger addAll method
     );
+    
+      
+      
     
     
     

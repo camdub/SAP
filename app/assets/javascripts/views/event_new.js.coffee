@@ -48,6 +48,7 @@ class App.Views.NewEventView extends Backbone.View
           #TODO
           alert response.responseText
       )
+    $('#note').notify('type' : 'success', 'message' : 'Yay!')
     
   close: ->
     $(@el).modal('hide')

@@ -34,5 +34,9 @@ border: 1px solid #ccc;
 
 .container-fluid {
 	margin-bottom: 0px !important;
+	
+	> .content {
+	  margin-top: -50px;
+	}
 }
 

@@ -27,3 +27,38 @@
 //= require_tree ./routers
 //= require_tree ../templates
 //= require_tree .
+
+//var top = $(window).scrollTop();
+//var left = $(window).scrollLeft();
+//$('body').css('overflow', 'hidden');
+//$(window).scroll(function(){
+//  $(this).scrollTop(top).scrollLeft(left);
+//});
+
+(function( $ ) {
+  $.fn.notify = function( options ) {
+    
+    var settings = {
+      'type'     :  'info',
+      'message' :  'Oops' 
+    };
+    
+    var $this = $(this);
+    
+    return this.each(function() {
+      if(options) {
+        $.extend( settings, options );
+      }
+      
+      $this.addClass(settings.type);
+      var type = settings.type.charAt(0).toUpperCase() + settings.type.substr(1);
+      $this.html('<a class="close" id="notify_close" href="#">×</a><strong>' + type + ': </strong>' + settings.message);
+      
+      $this.animate({"right" : "+=992px"} , 500, "swing"); // slide out
+      $('#notify_close').click(function() {
+        $this.animate({"right" : "-=992px"} , 500, "swing"); // slide out
+      });
+    });
+    
+  };
+})( jQuery );
