@@ -9,6 +9,8 @@ class App.Views.NewEventView extends Backbone.View
   
   render: =>
     console.log(@model)
+    console.log $.fullCalendar.parseDate(@model.get('start'))
+    console.log $.fullCalendar.parseDate(@model.get('end'))
     $(@el).html(JST['events/new']( 
       model: @model
       startdate: $.fullCalendar.parseDate(@model.get('start'))
@@ -24,10 +26,17 @@ class App.Views.NewEventView extends Backbone.View
       
   save: ->
     @$('.save').addClass('disabled').html 'Saving...'
-    console.log('enter save' + typeof(@model.get('start')))
     # convert into appointments
-    start = $.fullCalendar.parseDate @model.get('start')
-    end = $.fullCalendar.parseDate @model.get('end')
+    startdate = $('[name="startdate"]').val()
+    starttime = @convert_time_to_24hr $('[name="starttime"]').val()    
+    
+    enddate = $('[name="enddate"]').val()
+    endtime = @convert_time_to_24hr $('[name="endtime"]').val()
+
+    
+    start = new Date(startdate + " " + starttime)
+    end = new Date(enddate + " " + endtime)
+    console.log end
     duration = 30 if not @$('#apt-length').val()
       
     temp = null
@@ -55,3 +64,22 @@ class App.Views.NewEventView extends Backbone.View
     
   type_list: =>
     $('#duration_section').slideToggle('fast')
+  
+  convert_time_to_24hr: (string)->
+    console.log string
+    timeofday = string.substring(string.length-2)
+    string = string.substring(0,string.length-3)
+    array = string.split(":")
+    if(timeofday == "pm")
+      array[0] = parseInt(array[0]) + 12
+    array[2] = "00"
+    array.join(":")
+      
+    
+    
+    
+    
+    
+    
+    
+    

@@ -9,10 +9,10 @@
 			<label>Date</label>
 			<div class="input">
 				<div class="inline-inputs">
-					<input type="text" class="small" value="<%= $.fullCalendar.formatDate(@startdate, 'MMM d, yyyy') %>" />
-					<input type="text" class="mini" value="<%= $.fullCalendar.formatDate(@startdate, 'h:mm tt') %>" /> to
-					<input type="text" class="small" id="end" value="<%= $.fullCalendar.formatDate(@enddate, 'MMM d, yyyy') %>" />
-					<input type="text" class="mini" value="<%= $.fullCalendar.formatDate(@enddate, 'h:mm tt') %>" />
+					<input type="text" class="small" name="startdate" value="<%= $.fullCalendar.formatDate(@startdate, 'MMM d, yyyy') %>" />
+					<input type="text" class="mini" name="starttime" value="<%= $.fullCalendar.formatDate(@startdate, 'h:mm tt') %>" /> to
+					<input type="text" class="small" name="enddate" value="<%= $.fullCalendar.formatDate(@enddate, 'MMM d, yyyy') %>" />
+					<input type="text" class="mini" name="endtime" value="<%= $.fullCalendar.formatDate(@enddate, 'h:mm tt') %>" />
 				</div>
 			</div>
 		</div>
