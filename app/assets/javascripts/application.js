@@ -23,7 +23,9 @@
 
 //= require_tree ./models
 //= require_tree ./collections
-//= require_tree ./views
+// require_tree ./views
+//= require ./views/events_index
+//= require ./views/event_detail
 //= require_tree ./routers
 //= require_tree ../templates
 //= require_tree .
@@ -50,7 +52,7 @@
         $.extend( settings, options );
       }
       
-      $this.addClass(settings.type);
+      $this.removeClass('info warning error success').addClass(settings.type);
       var type = settings.type.charAt(0).toUpperCase() + settings.type.substr(1);
       $this.html('<a class="close" id="notify_close" href="#">×</a><strong>' + type + ': </strong>' + settings.message);
       

@@ -5,6 +5,14 @@
 		Open
 	<% end %>
 </p>-->
-This slot can be reserved for an appointment.
-<h5>Notes</h5>
-<p><% if @model.description: %><%= @model.description %><% else: %>None<% end %></p>
+<p>This slot can be reserved for an appointment.</p>
+<!--<h5>Notes</h5>
+<p><% if @model.description: %><%= @model.description %><% else: %>None<% end %></p>-->
+
+<button class="btn success" id="begin_apt" style="display:<%= 'none' if @model.title == 'Open' %>; width: 100%">Begin Appointment</button>
+
+	<div class="clearfix form-stacked" id="book_name" style="display:<%= 'none' if @model.title != 'Open' %>">
+		<label for="">Enter Name or NetID to book this slot</label>
+		<input type="text" class="xlarge" id="new_apt" name="student_name" size="30" event="<%= @model.id %>" />
+	</div>
+

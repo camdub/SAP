@@ -21,8 +21,8 @@
 			<label for="type">Event Type:</label>
 			<div class="input">
 				<select name="type" id="type" size="1">
-					<option value="option1">Open</option>
-					<option value="option2">Busy</option>			
+					<option value="open">Open</option>
+					<option value="busy">Busy</option>			
 				</select>
 			</div>
 		</div>
@@ -36,6 +36,13 @@
 				</div>
 				<span class="help-block">Duration for each appointment in this event block</span>	
 			</div>		
+		</div>
+		
+		<div class="clearfix" id="title_div" style="display:none">
+			<label for="title">Title:</label>
+			<div class="input">
+				<input type="text" class="xlarge" name="apt_title" />
+			</div>
 		</div>
 		
 	</form>

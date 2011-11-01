@@ -12,6 +12,34 @@
   box-shadow: 0 2px 2px #aaa;
 }
 
+.fc-event-time a {
+  color: white;
+  margin-right: 3px;
+}
+
+#book_name {
+  margin-top: 5px;
+
+  input {
+    width: 97%;
+  }
+}
+
+span.inactive {
+  display: none;
+}
+
+.popover {
+  
+  button {
+    margin-top: 5px;
+  }
+}
+
+.form-stacked {
+  padding-left: 0;
+}
+
 // CALENDAR STYLES
 
 // position × for the popover
