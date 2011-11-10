@@ -10,13 +10,10 @@ class App.Views.EventDetailView extends Backbone.View
   popover: ->
     $('.popover').remove()
     @render()
-    $('.close').live 'click', =>
+    $('.close').click =>
       @el.popover('hide')
 
-    #edit.attr('event',"#{@model.get('id')}")
-
     $('.edit').click =>
-      console.log 'clicked'
       if $('.edit').html() == 'edit'
         view = new App.Views.NewEventView(model: @model, collection: @collection, edit: true)
         view.render()
