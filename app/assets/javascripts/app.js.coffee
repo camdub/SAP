@@ -7,7 +7,7 @@ window.App =
 		@events = new App.Collections.Events(events) # this var can be accessed with App.events
 		@advisors = new App.Collections.Advisors() # this var can be accessed with App.events
 		@advisors.fetch({async:false})
-		@current_user = new App.Models.User(eval('('+$("#current_user").attr("user")+')'))
+		@current_user = new App.Models.User(JSON.parse($("#current_user").attr("user")))
 		new App.Routers.Events
 		Backbone.history.start();
     

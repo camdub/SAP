@@ -2,29 +2,49 @@ class App.Views.NewEventView extends Backbone.View
   
   el: '#neweventdialog'
   
+  template: JST['events/new']
+  
   events:
     "click .cancel" : "close"
     "click .save"   : "save"
     "change #type"  : "type_list"
-  
+      
   render: =>
-    $(@el).html(JST['events/new']( 
+    el = $(@el)
+    el.html(@template( 
       model: @model
       startdate: $.fullCalendar.parseDate(@model.get('start'))
       enddate: $.fullCalendar.parseDate(@model.get('end'))  
     ))
     $('body').append(@el)
     # don't know why these are not added by the modal js
-    $(@el).addClass('modal')
-    $(@el).addClass('fade')
-    $(@el).modal
+    el.addClass('modal','fade')
+    el.modal
       show : true
       backdrop : true
       
+    $(@el).bind 'hidden', -> # this is to reset the modal for the next time its called
+      $(@).remove()
+      $('body').append '<div id="neweventdialog"></div>'
+    @
+    
+  update: (event) ->
+    e = $('#calendar').fullCalendar('clientEvents', event.id).shift() # first elm
+    $('#calendar').fullCalendar('updateEvent', e)
+          
   save: ->
     @$('.save').addClass('disabled').html 'Saving...'
     if @validate_input()
-      if @$('[name="type"]').val() == 'open'
+      if @options.edit == true
+        @model.set(title: $('[name="apt_title"]').val()) if @model.event_type == 'Busy'
+        @model.set(start: @extract_date('start'), end: @extract_date('end'))
+
+        @model.save({}, success: (m, r) =>
+          $('.modal').modal('hide')
+          # the collection (event_index) handles the update
+          return
+        )
+      else if @$('[name="type"]').val() == 'open'
         @save_open_event()
       else
         @save_busy_event()
@@ -80,11 +100,10 @@ class App.Views.NewEventView extends Backbone.View
     $('#title_div').slideToggle('fast') # title for busy
   
   convert_time_to_24hr: (string)->
-    console.log string
     timeofday = string.substring(string.length-2)
     string = string.substring(0,string.length-3)
     array = string.split(":")
-    if(timeofday == "pm")
+    if(timeofday == "pm" && parseInt(array[0]) != 12)
       array[0] = parseInt(array[0]) + 12
     array[2] = "00"
     array.join(":")
@@ -94,11 +113,12 @@ class App.Views.NewEventView extends Backbone.View
     if which == 'start'
       startdate = $('[name="startdate"]').val()
       starttime = @convert_time_to_24hr $('[name="starttime"]').val()
-      return new Date(startdate + " " + starttime)    
+      date = new Date(startdate + " " + starttime)    
     else
       enddate = $('[name="enddate"]').val()
       endtime = @convert_time_to_24hr $('[name="endtime"]').val()
-      return new Date(enddate + " " + endtime)  
+      return new Date(enddate + " " + endtime)
+    return date 
   
   # validation is needed here in the view because the data should be 
   # validated BEFORE the open event is split into sub-events
@@ -113,4 +133,4 @@ class App.Views.NewEventView extends Backbone.View
     
     
     
-    
+  

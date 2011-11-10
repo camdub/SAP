@@ -6,7 +6,8 @@ class App.Views.EventIndex extends Backbone.View
     @collection.bind('reset', @addAll)
     @collection.bind('add', @add)
     @collection.bind('remove', @remove)
-    @view = new App.Views.NewEventView()
+    @collection.bind('change', @update)
+    #@view = new App.Views.NewEventView(collection: @collection)
     
   render: =>
     @el.fullCalendar
@@ -25,6 +26,7 @@ class App.Views.EventIndex extends Backbone.View
       selectable: true
       selectHelper: true
       eventColor: 'green'
+      eventClick: @event_click
     @collection.trigger('reset', App.current_user) # trigger addAll method
     @el.prepend(JST['events/calendar_select']())
     
@@ -47,14 +49,19 @@ class App.Views.EventIndex extends Backbone.View
     @el.fullCalendar('renderEvent', event.toJSON())
     
   remove: (event) =>
-    console.log event.id
     $('.popover').css('display','none')
     @el.fullCalendar('removeEvents', event.id)
     $('.fc-event').css('display','block')
     
+  update: (event) =>
+    @remove(event)
+    @add(event)
+    #@el.fullCalendar('renderEvent', event.toJSON())
+    
   # Called by eventRender callback of fullCalendar  
   # Loads the detail view into the popover and initializes the popover  
   event_detail: (event, element) =>
+    # TODO - SET COLORS FOR EVENTS
     return
     
   # Called after the user makes a selection on the calendar
@@ -62,9 +69,10 @@ class App.Views.EventIndex extends Backbone.View
   select: (startdate, enddate) =>
     # check to see if this user can edit current calendar
     if App.current_user.get('netid') == App.advisors.getByCid($("#calendar_selection").val()).get('netid')
-      @view.model = new App.Models.Event( start: startdate.toString(), end: enddate.toString() )
-      @view.collection = @collection
-      @view.render()
+      view = new App.Views.NewEventView(collection: @collection)
+      console.log view
+      view.model = new App.Models.Event( start: startdate.toString(), end: enddate.toString() )
+      view.render()
     else
       @el.fullCalendar('unselect')
       $('#note').notify('type' : 'error', 'message' : 'Cannot edit another user\'s calendar.')
@@ -75,40 +83,29 @@ class App.Views.EventIndex extends Backbone.View
       @el.fullCalendar('removeEvents')
       @collection.trigger('reset', selected_user) # trigger addAll method
     );
-    
+      
   after_render: (event, element)=>
-    if event.event_type == 'Open'
+    if event.event_type == 'Open'    
+      # set up to add book link to opend events
       element.find('.fc-event-time').append("<span id='book-#{event.id}' class='book' style='float:right'><a href='#'>book</a></span>")
-    #new App.Views.EventDetailView(model : event, el : element).render()
-    element.popover
+
+    element.popover # set popover options
       placement: 'left'
       fallback: 'Testing'
       offset: 3
       trigger: 'manual'
       html: true # allows template to be rendered for content
-    console.log event
+      
+    console.log "after render %o", event
+    # the following must be called here.  All events in the Detail view are bound to the popover
+    # any popover related events needing to be bound to the event happens here
     element.attr('title', event.title) # popover takes title from title attr
     element.attr('data-content', JST['events/detail']( model: event ))
-    #new App.Views.EventDetailView(model : event, el : element).render()
-    element.click => 
-      currModel = @collection.get(event.id)
-      $('.popover').css('display','none')
-      element.popover('show')
-      edit = $('.edit')
-      edit.attr('event',"#{event.id}")
-      edit.click(=>
-        if edit.html() == 'edit'
-          @view.model = currModel
-          @view.render()
-      )
-      $('.delete').click(=>
-          c = confirm('Are you Sure?')
-          if c
-            model = currModel
-            model.destroy()
-            @collection.remove(model)
-      )
-      ###
+    element.attr('cal_event',"#{event.id}")
+    
+    #event.click ->
+    new App.Views.EventDetailView(model : @collection.get(event.id), el: $(element), collection: @collection)
+    ###      
       $('#new_apt').keypress((e)=>
         console.log $(e.target).attr('event')
         console.log event.id
@@ -125,11 +122,11 @@ class App.Views.EventIndex extends Backbone.View
         event.title = text
         @el.fullCalendar('updateEvent', event)
         $("#book-#{event.id}").toggleClass('inactive')
-      )###
+      )
       $('.close').click(->
         element.popover('hide')
-      )
-      return # the popover doesn't work if it is returned
+      )###
+    return # the popover doesn't work if it is returned
     
       
       
