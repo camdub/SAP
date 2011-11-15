@@ -10,6 +10,7 @@ class App.Views.EventIndex extends Backbone.View
     #@view = new App.Views.NewEventView(collection: @collection)
     
   render: =>
+    console.log "In Render Method"
     @el.fullCalendar
       header:
         left: 'prev,next today'
@@ -25,7 +26,7 @@ class App.Views.EventIndex extends Backbone.View
       eventAfterRender: @after_render
       selectable: true
       selectHelper: true
-      eventColor: 'green'
+      eventColor: '#000000'
       eventClick: @event_click
     @collection.trigger('reset', App.current_user) # trigger addAll method
     @el.prepend(JST['events/calendar_select']())
@@ -62,6 +63,20 @@ class App.Views.EventIndex extends Backbone.View
   # Loads the detail view into the popover and initializes the popover  
   event_detail: (event, element) =>
     # TODO - SET COLORS FOR EVENTS
+    color = 'blue'
+    if event.event_type == 'Open'
+      color = 'green'
+    else if event.event_type == 'Busy'
+      color = 'red'
+    #console.log "and element: %o", element
+    #console.log "element color: %o", $(element).attr('')
+    
+    $(element).css('background-color',color)
+    $(element).css('border-color',color)
+    
+    $(element).find('div').css('background-color',color)
+    $(element).find('div').css('border-color',color)
+    #console.log "element color: %o", $(element).css('color')
     return
     
   # Called after the user makes a selection on the calendar
