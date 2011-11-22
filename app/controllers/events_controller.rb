@@ -6,7 +6,6 @@ class EventsController < ApplicationController
   # GET
   def index
     @events = Event.all
-    @events.map{|event| event[:user_data] = event.user.user_data}
     respond_with @events
   end
   

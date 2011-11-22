@@ -14,6 +14,7 @@ class User < ActiveRecord::Base
       :firstname => self.firstname, 
       :lastname => self.lastname, 
       :netid => self.netid,
+      :id => self.id,
       :can_read_all_events => true,
       :can_read_own_events => true,
       :can_write_events => true,
