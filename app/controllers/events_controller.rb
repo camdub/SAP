@@ -21,6 +21,7 @@ class EventsController < ApplicationController
     @event = Event.create(params[:event])
     @event.user = @current_user
     if @event.save
+      broadcast("/events/new", @event.attributes)      
       respond_with @event, :status => :ok # backbone needs 200
     else
       render :json => @event.errors.full_messages, :status => :unprocessable_entity
@@ -31,6 +32,7 @@ class EventsController < ApplicationController
   def update
     @event = Event.find(params[:id])
     if @event.update_attributes(params[:event])
+      broadcast("/events/update", @event.attributes)
       render :json => @event, :status => :ok # 200
     else
       render :json => @event.errors.full_messages, :status => :unprocessable_entity
@@ -42,6 +44,7 @@ class EventsController < ApplicationController
     @event = Event.find(params[:id])
     @event.destroy
     
+    broadcast("/events/delete", params[:id])
     respond_with "", :status => :ok
   end
   

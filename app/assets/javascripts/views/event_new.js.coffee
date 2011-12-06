@@ -55,7 +55,9 @@ class App.Views.NewEventView extends Backbone.View
     start = @extract_date('start')
     end = @extract_date('end')
     
-    @collection.create(new App.Models.Event( start: start, end: end, event_type: 'Busy', title: @$('[name="apt_title"]', appointments: []).val()), 
+    new_model = new App.Models.Event({ start: start, end: end, event_type: 'Busy', title: @$('[name="apt_title"]'), appointments: []})
+    
+    new_model.save({}, 
       success: (model, response) =>
         $('.modal').modal('hide')
         return

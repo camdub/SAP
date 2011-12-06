@@ -1,4 +1,3 @@
-
 //= require jquery
 //= require jquery_ujs
 
@@ -15,6 +14,7 @@
 //= require bootstrap-popover
 //= require bootstrap-modal
 //= require bootstrap-dropdown
+//= require pusher
 
 //= require app
 
@@ -34,6 +34,9 @@
 //  $(this).scrollTop(top).scrollLeft(left);
 //});
 
+var faye = new Faye.Client('http://localhost:9292/faye');
+ 
+
 (function( $ ) {
   $.fn.notify = function( options ) {
     
@@ -41,7 +44,7 @@
       'type'     :  'info',
       'message' :  'Oops' 
     };
-    
+     
     var $this = $(this);
     
     return this.each(function() {

@@ -6,6 +6,7 @@ require "action_controller/railtie"
 require "action_mailer/railtie"
 require "active_resource/railtie"
 require "sprockets/railtie"
+require 'net/http'
 #require 'capybara/cucumber'
 # require "rails/test_unit/railtie"
 

@@ -15,4 +15,12 @@ class ApplicationController < ActionController::Base
     redirect_to user_login_path if not current_user
   end
   #helper_method :current_user
+  
+  def broadcast(channel, data)
+    message = {:channel => channel, :data => data}
+    puts message
+    uri = URI.parse("http://localhost:9292/faye")
+    Net::HTTP.post_form(uri, :message => message.to_json)
+  end
 end
+

@@ -3,6 +3,21 @@ class App.Views.EventIndex extends Backbone.View
    "change #calendar_selection" : "change_active_calendar"
    
   initialize: ->
+    
+    faye.subscribe("/events/new", (data) =>
+      @collection.add(new App.Models.Event(data))
+    )
+    
+    faye.subscribe("/events/delete", (id) =>
+      @collection.remove(@collection.get(id))
+    )
+    
+    faye.subscribe("/events/update", (data) =>
+      console.log('updated')
+      @collection.remove(data.id)
+      @collection.add(new App.Models.Event(data))
+    )
+    
     @collection.bind('reset', @addAll)
     @collection.bind('add', @add)
     @collection.bind('remove', @remove)
