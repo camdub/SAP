@@ -14,6 +14,5 @@
 	<div class="clearfix form-stacked" id="book_name" style="display:<%= 'none' if @model.title != 'Open' %>">
 		<label for="">Enter Name or NetID to book this slot</label>
 		<input type="text" class="xlarge" id="new_apt" name="student_name" size="30" event="<%= @model.id %>" />
-		<button class="btn">Submit</button>
 	</div>
 

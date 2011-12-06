@@ -35,12 +35,21 @@ class App.Views.EventIndex extends Backbone.View
   # Loads all events in the collection into the calendar (creates event obj)
   # based on the current user and which user's calendar is currently selected  
   addAll: (user) =>
+    # add colors for events
+    @collection.each((event) ->
+      event.color = 'red' if event.get('event_type') == 'Busy'
+      event.color = 'green' if event.get('event_type') == 'Open'
+    )
+    
     this_users_events = @collection.filter( (event)->
-      return event.get("user_data").netid == user.get("netid")
+      return event.get("user").netid == user.get("netid")
     )    
     this_users_events = _.map(this_users_events, (event)-> 
+      event.color = 'red' if event.get('event_type') == 'Busy'
+      event.color = 'green' if event.get('event_type') == 'Open'
       return event.toJSON()
-    )  
+    )
+    
     @el.fullCalendar('addEventSource', this_users_events)
     $('.fc-event').fadeIn(1000);
     
@@ -83,7 +92,6 @@ class App.Views.EventIndex extends Backbone.View
     # check to see if this user can edit current calendar
     if App.current_user.get('netid') == App.advisors.getByCid($("#calendar_selection").val()).get('netid')
       view = new App.Views.NewEventView(collection: @collection)
-      console.log view
       view.model = new App.Models.Event( start: startdate.toString(), end: enddate.toString() )
       view.render()
     else
@@ -98,9 +106,15 @@ class App.Views.EventIndex extends Backbone.View
     );
       
   after_render: (event, element)=>
-    if event.event_type == 'Open'    
+    if event.event_type == 'Open'
+      if event.title == 'Open'
+        link_name = 'book'
+      else
+        link_name = 'remove'
+     
+      console.log link_name
       # set up to add book link to opend events
-      element.find('.fc-event-time').append("<span id='book-#{event.id}' class='book' style='float:right'><a href='#'>book</a></span>")
+      element.find('.fc-event-time').append("<span id='book-#{event.id}' class='book' style='float:right'><a href='#'>" + link_name + "</a></span>")
 
     element.popover # set popover options
       placement: 'left'
@@ -109,7 +123,6 @@ class App.Views.EventIndex extends Backbone.View
       trigger: 'manual'
       html: true # allows template to be rendered for content
       
-    console.log "after render %o", event
     # the following must be called here.  All events in the Detail view are bound to the popover
     # any popover related events needing to be bound to the event happens here
     element.attr('title', event.title) # popover takes title from title attr
