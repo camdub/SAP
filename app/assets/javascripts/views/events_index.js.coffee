@@ -68,15 +68,13 @@ class App.Views.EventIndex extends Backbone.View
       color = 'green'
     else if event.event_type == 'Busy'
       color = 'red'
-    #console.log "and element: %o", element
-    #console.log "element color: %o", $(element).attr('')
-    
+
     $(element).css('background-color',color)
     $(element).css('border-color',color)
     
     $(element).find('div').css('background-color',color)
     $(element).find('div').css('border-color',color)
-    #console.log "element color: %o", $(element).css('color')
+
     return
     
   # Called after the user makes a selection on the calendar
