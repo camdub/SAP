@@ -5,7 +5,9 @@ class App.Views.EventIndex extends Backbone.View
   initialize: ->
     
     faye.subscribe("/events/new", (data) =>
+      #alert("came back from server")
       @collection.add(new App.Models.Event(data))
+      #alert("after add")
     )
     
     faye.subscribe("/events/delete", (id) =>
@@ -25,7 +27,6 @@ class App.Views.EventIndex extends Backbone.View
     #@view = new App.Views.NewEventView(collection: @collection)
     
   render: =>
-    console.log "In Render Method"
     @el.fullCalendar
       header:
         left: 'prev,next today'

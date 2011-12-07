@@ -43,7 +43,7 @@ class App.Views.EventDetailView extends Backbone.View
             @el.popover('hide')
         )
         @model.appointments.add(model)
-        @model.save(title: text.val())
+        @model.save(title: text.val(), event_type: 'Appointment')
     
   render_appointment: (apt) =>
     @collection.trigger('change', @collection.get(@model.id))

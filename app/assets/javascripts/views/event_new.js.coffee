@@ -55,7 +55,7 @@ class App.Views.NewEventView extends Backbone.View
     start = @extract_date('start')
     end = @extract_date('end')
     
-    new_model = new App.Models.Event({ start: start, end: end, event_type: 'Busy', title: @$('[name="apt_title"]'), appointments: []})
+    new_model = new App.Models.Event({ start: start, end: end, event_type: 'Busy', title: @$('[name="apt_title"]').val(), appointments: []})
     
     new_model.save({}, 
       success: (model, response) =>
@@ -83,8 +83,8 @@ class App.Views.NewEventView extends Backbone.View
 
       appointment_slot = new App.Models.Event( start: temp, end: start, event_type: 'Open' )
       appointment_slot.set(user_data : App.current_user.toJSON()) # add current user info to the event before saving
-    
-      @collection.create(appointment_slot, 
+      
+      appointment_slot.save({}, 
         success: (model, response) =>
           $('.modal').modal('hide')
           return

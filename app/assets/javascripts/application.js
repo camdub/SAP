@@ -14,7 +14,6 @@
 //= require bootstrap-popover
 //= require bootstrap-modal
 //= require bootstrap-dropdown
-//= require pusher
 
 //= require app
 
@@ -60,6 +59,7 @@ var faye = new Faye.Client('http://localhost:9292/faye');
       $('#notify_close').click(function() {
         $this.animate({"right" : "-=992px"} , 500, "swing"); // slide out
       });
+      setTimeout(function(){$('#notify_close').trigger('click')},3000);
     });
     
   };
